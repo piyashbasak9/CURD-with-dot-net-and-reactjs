@@ -9,3 +9,4 @@
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Domain/obj/Debug/net8.0/refint/TaskManager.Domain.dll
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Domain/obj/Debug/net8.0/TaskManager.Domain.pdb
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Domain/obj/Debug/net8.0/ref/TaskManager.Domain.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Domain/obj/Debug/net8.0/TaskManager.Domain.sourcelink.json

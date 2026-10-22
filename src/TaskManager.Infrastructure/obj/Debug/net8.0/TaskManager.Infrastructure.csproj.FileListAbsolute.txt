@@ -9,3 +9,10 @@
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/refint/TaskManager.Infrastructure.dll
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskManager.Infrastructure.pdb
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/ref/TaskManager.Infrastructure.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/bin/Debug/net8.0/TaskManager.Application.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/bin/Debug/net8.0/TaskManager.Domain.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/bin/Debug/net8.0/TaskManager.Application.pdb
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/bin/Debug/net8.0/TaskManager.Domain.pdb
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskManager.Infrastructure.csproj.AssemblyReference.cache
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskManager.Infrastructure.sourcelink.json
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskMana.DD0CDC6B.Up2Date
