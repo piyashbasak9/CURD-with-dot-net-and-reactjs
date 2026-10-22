@@ -1,0 +1,11 @@
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/bin/Debug/net8.0/TaskManager.Application.deps.json
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/bin/Debug/net8.0/TaskManager.Application.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/bin/Debug/net8.0/TaskManager.Application.pdb
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/TaskManager.Application.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/TaskManager.Application.AssemblyInfoInputs.cache
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/TaskManager.Application.AssemblyInfo.cs
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/TaskManager.Application.csproj.CoreCompileInputs.cache
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/TaskManager.Application.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/refint/TaskManager.Application.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/TaskManager.Application.pdb
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Application/obj/Debug/net8.0/ref/TaskManager.Application.dll
