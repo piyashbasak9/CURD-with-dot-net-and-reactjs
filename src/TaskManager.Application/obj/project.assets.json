@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "TaskManager.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TaskManager.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TaskManager.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "TaskManager.Domain/1.0.0": {
+      "type": "project",
+      "path": "../TaskManager.Domain/TaskManager.Domain.csproj",
+      "msbuildProject": "../TaskManager.Domain/TaskManager.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "TaskManager.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/piyash/.nuget/packages/": {}
@@ -32,7 +51,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Domain/TaskManager.Domain.csproj": {
+              "projectPath": "/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Domain/TaskManager.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
