@@ -16,5 +16,31 @@ public class AppDbContext
     {
     }
 
+protected override void OnModelCreating(ModelBuilder builder){
+    base.OnModelCreating(builder);
+
+    builder.Entity<EmailVerificationCode>(entity =>
+    {
+        entity.HasKey(x => x.Id);
+
+        entity.Property(x => x.CodeHash)
+            .HasMaxLength(128)
+            .IsRequired();
+
+        entity.HasIndex(x => new
+        {
+            x.UserId,
+            x.CreatedAtUtc
+        });
+
+        entity.HasOne<ApplicationUser>()
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+    });
+}
+
     public DbSet<TaskItem> Tasks => Set<TaskItem>();
+    public DbSet<EmailVerificationCode> EmailVerificationCodes
+    => Set<EmailVerificationCode>();
 }

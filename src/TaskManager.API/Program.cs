@@ -6,6 +6,7 @@ using TaskManager.Application.Services;
 using Microsoft.AspNetCore.Identity;
 using TaskManager.Infrastructure.Identity;
 using TaskManager.Infrastructure.Services;
+using TaskManager.Infrastructure.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,12 @@ builder.Services
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
+builder.Services.Configure<GmailSmtpOptions>(
+    builder.Configuration.GetSection("GmailSmtp"));
 
+
+
+builder.Services.AddScoped<IEmailService, GmailEmailService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -92,5 +98,26 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapPost("/api/dev/test-email", async (
+        string to,
+        IEmailService emailService,
+        CancellationToken cancellationToken) =>
+    {
+        await emailService.SendEmailAsync(
+            to,
+            "Task Manager SMTP Test",
+            "Your Gmail SMTP configuration is working.",
+            cancellationToken);
+
+        return Results.Ok(new
+        {
+            message = "Test email sent successfully."
+        });
+    });
+}
 
 app.Run();
