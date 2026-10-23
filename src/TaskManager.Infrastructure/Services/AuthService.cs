@@ -9,10 +9,14 @@ namespace TaskManager.Infrastructure.Services;
 public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IEmailVerificationService _emailVerificationService;
 
-    public AuthService(UserManager<ApplicationUser> userManager)
+    public AuthService(
+        UserManager<ApplicationUser> userManager,
+        IEmailVerificationService emailVerificationService)
     {
         _userManager = userManager;
+        _emailVerificationService = emailVerificationService;
     }
 
     public async Task RegisterAsync(
@@ -53,5 +57,10 @@ public class AuthService : IAuthService
 
             throw new InvalidOperationException(errors);
         }
+
+        await _emailVerificationService.SendCodeAsync(
+            user.Id,
+            user.Email!,
+            cancellationToken);
     }
 }

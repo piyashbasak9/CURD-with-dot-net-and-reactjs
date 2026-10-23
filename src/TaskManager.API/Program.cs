@@ -53,8 +53,16 @@ builder.Services
 builder.Services.Configure<GmailSmtpOptions>(
     builder.Configuration.GetSection("GmailSmtp"));
 
+builder.Services
+    .AddOptions<EmailVerificationOptions>()
+    .Bind(builder.Configuration.GetSection("EmailVerification"))
+    .Validate(
+        options => !string.IsNullOrWhiteSpace(options.HmacKey),
+        "EmailVerification:HmacKey is required.")
+    .ValidateOnStart();
 
 
+builder.Services.AddScoped<IEmailVerificationService,EmailVerificationService>();
 builder.Services.AddScoped<IEmailService, GmailEmailService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
