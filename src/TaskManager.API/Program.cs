@@ -40,6 +40,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.Use(async (context, next) =>
+{
+    Console.WriteLine(
+        $"--> {context.Request.Method} {context.Request.Path}{context.Request.QueryString}");
+
+    await next();
+
+    Console.WriteLine(
+        $"<-- {context.Response.StatusCode}");
+});
+
 app.UseCors("ReactFrontend");
 
 app.UseHttpsRedirection();
