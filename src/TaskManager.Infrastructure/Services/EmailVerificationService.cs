@@ -33,7 +33,7 @@ public class EmailVerificationService : IEmailVerificationService
         catch (FormatException)
         {
             throw new InvalidOperationException(
-                "Email verification HMAC key must be a valid hexadecimal string.");
+                "Email verification HMAC key must be valid hexadecimal.");
         }
 
         if (_hmacKey.Length != 32)
@@ -45,7 +45,7 @@ public class EmailVerificationService : IEmailVerificationService
         if (_options.CodeLifetimeMinutes <= 0)
         {
             throw new InvalidOperationException(
-                "Email verification code lifetime must be greater than zero.");
+                "Code lifetime must be greater than zero.");
         }
     }
 
@@ -54,39 +54,30 @@ public class EmailVerificationService : IEmailVerificationService
         string email,
         CancellationToken cancellationToken = default)
     {
-        // Generate a random 6-digit verification code.
         var code = RandomNumberGenerator
             .GetInt32(0, 1_000_000)
             .ToString("D6");
 
-        // Store a keyed hash instead of the actual verification code.
-        var codeHash = CreateCodeHash(userId, code);
-        var now = DateTimeOffset.UtcNow;
+        var verification = new EmailVerificationCode
+        {
+            UserId = userId,
+            CodeHash = CreateCodeHash(userId, code),
+            CreatedAtUtc = DateTimeOffset.UtcNow,
+            ExpiresAtUtc = DateTimeOffset.UtcNow.AddMinutes(
+                _options.CodeLifetimeMinutes)
+        };
 
-        // Remove previous unused verification codes for this user.
         var oldCodes = await _dbContext.EmailVerificationCodes
             .Where(x => x.UserId == userId && x.UsedAtUtc == null)
             .ToListAsync(cancellationToken);
 
         _dbContext.EmailVerificationCodes.RemoveRange(oldCodes);
-
-        // Create a new verification code with an expiration time.
-        var verification = new EmailVerificationCode
-        {
-            UserId = userId,
-            CodeHash = codeHash,
-            CreatedAtUtc = now,
-            ExpiresAtUtc = now.AddMinutes(
-                _options.CodeLifetimeMinutes)
-        };
-
         _dbContext.EmailVerificationCodes.Add(verification);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         try
         {
-            // Send the actual code to the user's email.
             await _emailService.SendEmailAsync(
                 email,
                 "Verify your Task Manager account",
@@ -96,20 +87,54 @@ public class EmailVerificationService : IEmailVerificationService
         }
         catch
         {
-            // Remove the code record if sending the email fails.
             _dbContext.EmailVerificationCodes.Remove(verification);
-
             await _dbContext.SaveChangesAsync(cancellationToken);
-
             throw;
         }
     }
 
+    public async Task VerifyCodeAsync(
+        Guid userId,
+        string code,
+        CancellationToken cancellationToken = default)
+    {
+        var now = DateTimeOffset.UtcNow;
+
+        var verification = await _dbContext.EmailVerificationCodes
+            .Where(x =>
+                x.UserId == userId &&
+                x.UsedAtUtc == null &&
+                x.ExpiresAtUtc > now)
+            .OrderByDescending(x => x.CreatedAtUtc)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (verification is null)
+        {
+            throw new InvalidOperationException(
+                "Verification code is invalid or expired. Please request a new code.");
+        }
+
+        var submittedHash = CreateCodeHash(userId, code);
+
+        var expectedBytes = Convert.FromHexString(verification.CodeHash);
+        var submittedBytes = Convert.FromHexString(submittedHash);
+
+        if (!CryptographicOperations.FixedTimeEquals(
+                expectedBytes,
+                submittedBytes))
+        {
+            throw new InvalidOperationException(
+                "Invalid verification code.");
+        }
+
+        verification.UsedAtUtc = DateTimeOffset.UtcNow;
+
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
     private string CreateCodeHash(Guid userId, string code)
     {
-        var data = Encoding.UTF8.GetBytes(
-            $"{userId:N}:{code}");
-
+        var data = Encoding.UTF8.GetBytes($"{userId:N}:{code}");
         var hash = HMACSHA256.HashData(_hmacKey, data);
 
         return Convert.ToHexString(hash);

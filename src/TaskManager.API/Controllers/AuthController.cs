@@ -23,16 +23,36 @@ public class AuthController : ControllerBase
     {
         try
         {
-            await _authService.RegisterAsync(
-                dto,
-                cancellationToken);
+            await _authService.RegisterAsync(dto, cancellationToken);
 
             return StatusCode(
                 StatusCodes.Status201Created,
                 new
                 {
-                    message = "Account created. Email verification is required before login."
+                    message = "Account created. Please verify your email."
                 });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("verify-email")]
+    public async Task<IActionResult> VerifyEmail(
+        [FromBody] VerifyEmailDto dto,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _authService.VerifyEmailAsync(
+                dto,
+                cancellationToken);
+
+            return Ok(new
+            {
+                message = "Email verified successfully. You can now log in."
+            });
         }
         catch (InvalidOperationException ex)
         {
