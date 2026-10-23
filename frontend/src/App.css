@@ -466,3 +466,67 @@ button {
     font-size: 17px;
   }
 }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a.active {
+  color: #4f46e5;
+}
+
+.brand {
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    gap: 10px;
+  }
+
+  .tech-label {
+    display: none;
+  }
+}
+
+.edit-status-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.edit-status-label input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+
+.not-found {
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.not-found h1 {
+  margin-bottom: 12px;
+}
+
+.not-found p:not(.eyebrow) {
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.not-found .form-actions {
+  justify-content: center;
+  flex-wrap: wrap;
+}
