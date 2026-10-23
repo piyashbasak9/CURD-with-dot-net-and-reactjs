@@ -40,3 +40,14 @@
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/TaskManager.Infrastructure.pdb
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/TaskManager.Domain.pdb
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/obj/Debug/net8.0/TaskManager.API.sourcelink.json
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Npgsql.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

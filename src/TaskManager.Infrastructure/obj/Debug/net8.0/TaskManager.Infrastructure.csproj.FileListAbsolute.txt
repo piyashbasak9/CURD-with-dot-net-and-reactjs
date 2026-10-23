@@ -16,3 +16,5 @@
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskManager.Infrastructure.csproj.AssemblyReference.cache
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskManager.Infrastructure.sourcelink.json
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskMana.DD0CDC6B.Up2Date
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/bin/Debug/net8.0/TaskManager.Infrastructure.runtimeconfig.json
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.Infrastructure/obj/Debug/net8.0/TaskManager.Infrastructure.genruntimeconfig.cache
