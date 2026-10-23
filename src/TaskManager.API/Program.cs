@@ -3,6 +3,9 @@ using TaskManager.Infrastructure.Data;
 using TaskManager.Application.Interfaces;
 using TaskManager.Infrastructure.Repositories;
 using TaskManager.Application.Services;
+using Microsoft.AspNetCore.Identity;
+using TaskManager.Infrastructure.Identity;
+using TaskManager.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +20,39 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSingleton<TimeProvider>(
+    TimeProvider.System);
+
+builder.Services.AddDataProtection();
+
+
+builder.Services
+    .AddIdentityCore<ApplicationUser>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+
+        options.SignIn.RequireConfirmedEmail = true;
+
+        options.Password.RequiredLength = 8;
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireNonAlphanumeric = false;
+
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.DefaultLockoutTimeSpan =
+            TimeSpan.FromMinutes(5);
+        options.Lockout.AllowedForNewUsers = true;
+    })
+    .AddRoles<IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddSignInManager()
+    .AddDefaultTokenProviders();
+
+
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddCors(options =>
 {
