@@ -14,7 +14,9 @@ public class TaskService : ITaskService
         _taskRepository = taskRepository;
     }
 
-    public async Task<TaskResponseDto> CreateAsync(CreateTaskDto dto)
+    public async Task<TaskResponseDto> CreateAsync(
+        CreateTaskDto dto,
+        Guid userId)
     {
         if (string.IsNullOrWhiteSpace(dto.Title))
         {
@@ -24,7 +26,8 @@ public class TaskService : ITaskService
         var task = new TaskItem
         {
             Title = dto.Title.Trim(),
-            Description = dto.Description
+            Description = dto.Description,
+            UserId = userId
         };
 
         var createdTask = await _taskRepository.CreateAsync(task);
@@ -32,16 +35,18 @@ public class TaskService : ITaskService
         return MapToResponseDto(createdTask);
     }
 
-    public async Task<List<TaskResponseDto>> GetAllAsync()
+    public async Task<List<TaskResponseDto>> GetAllAsync(Guid userId)
     {
-        var tasks = await _taskRepository.GetAllAsync();
+        var tasks = await _taskRepository.GetAllAsync(userId);
 
         return tasks.Select(MapToResponseDto).ToList();
     }
 
-    public async Task<TaskResponseDto?> GetByIdAsync(Guid id)
+    public async Task<TaskResponseDto?> GetByIdAsync(
+        Guid id,
+        Guid userId)
     {
-        var task = await _taskRepository.GetByIdAsync(id);
+        var task = await _taskRepository.GetByIdAsync(id, userId);
 
         if (task is null)
         {
@@ -53,7 +58,8 @@ public class TaskService : ITaskService
 
     public async Task<TaskResponseDto?> UpdateAsync(
         Guid id,
-        UpdateTaskDto dto)
+        UpdateTaskDto dto,
+        Guid userId)
     {
         if (string.IsNullOrWhiteSpace(dto.Title))
         {
@@ -65,10 +71,11 @@ public class TaskService : ITaskService
             Id = id,
             Title = dto.Title.Trim(),
             Description = dto.Description,
-            IsCompleted = dto.IsCompleted
+            IsCompleted = dto.IsCompleted,
+            UserId = userId
         };
 
-        var updatedTask = await _taskRepository.UpdateAsync(task);
+        var updatedTask = await _taskRepository.UpdateAsync(task, userId);
 
         if (updatedTask is null)
         {
@@ -78,9 +85,9 @@ public class TaskService : ITaskService
         return MapToResponseDto(updatedTask);
     }
 
-    public async Task<bool> DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id, Guid userId)
     {
-        return await _taskRepository.DeleteAsync(id);
+        return await _taskRepository.DeleteAsync(id, userId);
     }
 
     private static TaskResponseDto MapToResponseDto(TaskItem task)

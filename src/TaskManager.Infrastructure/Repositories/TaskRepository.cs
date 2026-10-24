@@ -23,21 +23,27 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
-    public async Task<List<TaskItem>> GetAllAsync()
-    {
-        return await _context.Tasks.ToListAsync();
-    }
-
-    public async Task<TaskItem?> GetByIdAsync(Guid id)
+    public async Task<List<TaskItem>> GetAllAsync(Guid userId)
     {
         return await _context.Tasks
-            .FirstOrDefaultAsync(t => t.Id == id);
+            .Where(t => t.UserId == userId)
+            .ToListAsync();
     }
 
-    public async Task<TaskItem?> UpdateAsync(TaskItem task)
+    public async Task<TaskItem?> GetByIdAsync(Guid id, Guid userId)
+    {
+        return await _context.Tasks
+            .FirstOrDefaultAsync(t =>
+                t.Id == id && t.UserId == userId);
+    }
+
+    public async Task<TaskItem?> UpdateAsync(
+        TaskItem task,
+        Guid userId)
     {
         var existingTask = await _context.Tasks
-            .FirstOrDefaultAsync(t => t.Id == task.Id);
+            .FirstOrDefaultAsync(t =>
+                t.Id == task.Id && t.UserId == userId);
 
         if (existingTask is null)
         {
@@ -53,10 +59,11 @@ public class TaskRepository : ITaskRepository
         return existingTask;
     }
 
-    public async Task<bool> DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id, Guid userId)
     {
         var task = await _context.Tasks
-            .FirstOrDefaultAsync(t => t.Id == id);
+            .FirstOrDefaultAsync(t =>
+                t.Id == id && t.UserId == userId);
 
         if (task is null)
         {

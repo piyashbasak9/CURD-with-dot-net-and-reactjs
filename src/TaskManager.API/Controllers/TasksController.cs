@@ -1,10 +1,13 @@
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Application.DTOs;
 using TaskManager.Application.Interfaces;
 
 namespace TaskManager.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
@@ -18,11 +21,17 @@ public class TasksController : ControllerBase
 
     [HttpPost]
     public async Task<ActionResult<TaskResponseDto>> Create(
-        CreateTaskDto dto)
+        [FromBody] CreateTaskDto dto)
     {
+        if (!TryGetCurrentUserId(out var userId))
+        {
+            return Unauthorized();
+        }
+
         try
         {
-            var createdTask = await _taskService.CreateAsync(dto);
+            var createdTask = await _taskService.CreateAsync(
+                dto, userId);
 
             return CreatedAtAction(
                 nameof(GetById),
@@ -38,7 +47,12 @@ public class TasksController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<TaskResponseDto>>> GetAll()
     {
-        var tasks = await _taskService.GetAllAsync();
+        if (!TryGetCurrentUserId(out var userId))
+        {
+            return Unauthorized();
+        }
+
+        var tasks = await _taskService.GetAllAsync(userId);
 
         return Ok(tasks);
     }
@@ -46,7 +60,12 @@ public class TasksController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<TaskResponseDto>> GetById(Guid id)
     {
-        var task = await _taskService.GetByIdAsync(id);
+        if (!TryGetCurrentUserId(out var userId))
+        {
+            return Unauthorized();
+        }
+
+        var task = await _taskService.GetByIdAsync(id, userId);
 
         if (task is null)
         {
@@ -59,11 +78,17 @@ public class TasksController : ControllerBase
     [HttpPut("{id:guid}")]
     public async Task<ActionResult<TaskResponseDto>> Update(
         Guid id,
-        UpdateTaskDto dto)
+        [FromBody] UpdateTaskDto dto)
     {
+        if (!TryGetCurrentUserId(out var userId))
+        {
+            return Unauthorized();
+        }
+
         try
         {
-            var updatedTask = await _taskService.UpdateAsync(id, dto);
+            var updatedTask = await _taskService.UpdateAsync(
+                id, dto, userId);
 
             if (updatedTask is null)
             {
@@ -81,7 +106,12 @@ public class TasksController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var deleted = await _taskService.DeleteAsync(id);
+        if (!TryGetCurrentUserId(out var userId))
+        {
+            return Unauthorized();
+        }
+
+        var deleted = await _taskService.DeleteAsync(id, userId);
 
         if (!deleted)
         {
@@ -89,5 +119,13 @@ public class TasksController : ControllerBase
         }
 
         return NoContent();
+    }
+
+    private bool TryGetCurrentUserId(out Guid userId)
+    {
+        var userIdValue = User.FindFirstValue(
+            ClaimTypes.NameIdentifier);
+
+        return Guid.TryParse(userIdValue, out userId);
     }
 }
