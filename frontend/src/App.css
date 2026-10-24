@@ -235,6 +235,16 @@ button {
   font-size: 13px;
 }
 
+.success-message {
+  margin-top: 20px;
+  padding: 14px 16px;
+  color: #087443;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
 .tasks-section {
   margin-top: 40px;
 }
@@ -509,6 +519,46 @@ button {
   width: 16px;
   height: 16px;
   margin: 0;
+}
+
+.auth-panel {
+  width: min(100%, 480px);
+  margin: 0 auto;
+}
+
+.auth-panel form > .button {
+  align-self: flex-start;
+}
+
+.auth-switch {
+  margin: 22px 0 0;
+  color: #7b8497;
+  font-size: 13px;
+}
+
+.auth-switch a {
+  color: #4f46e5;
+  font-weight: 650;
+}
+
+.field-hint {
+  margin: -12px 0 20px;
+  color: #7b8497;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.nav-action {
+  padding: 6px 0;
+  color: #64748b;
+  background: transparent;
+  border: 0;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.nav-action:hover {
+  color: #4f46e5;
 }
 
 
