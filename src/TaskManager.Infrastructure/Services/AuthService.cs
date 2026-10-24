@@ -7,6 +7,10 @@ using TaskManager.Application.DTOs.Auth;
 using TaskManager.Application.Interfaces;
 using TaskManager.Infrastructure.Data;
 using TaskManager.Infrastructure.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 
 namespace TaskManager.Infrastructure.Services;
 
@@ -14,14 +18,17 @@ public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IEmailVerificationService _emailVerificationService;
+    private readonly JwtOptions _jwtOptions;
     private readonly AppDbContext _dbContext;
 
     public AuthService(
         UserManager<ApplicationUser> userManager,
         IEmailVerificationService emailVerificationService,
+        IOptions<JwtOptions> jwtOptions,
         AppDbContext dbContext)
     {
         _userManager = userManager;
+        _jwtOptions = jwtOptions.Value;
         _emailVerificationService = emailVerificationService;
         _dbContext = dbContext;
     }
@@ -107,5 +114,74 @@ public class AuthService : IAuthService
 
             throw new InvalidOperationException(errors);
         }
+    }
+
+    public async Task<LoginResponseDto> LoginAsync(
+        LoginDto dto,
+        CancellationToken cancellationToken = default)
+    {
+        var email = dto.Email.Trim();
+
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user is null)
+        {
+            throw new InvalidOperationException(
+                "Invalid email or password.");
+        }
+
+        if (!user.EmailConfirmed)
+        {
+            throw new InvalidOperationException(
+                "Please verify your email before logging in.");
+        }
+
+        var passwordValid = await _userManager.CheckPasswordAsync(
+            user,
+            dto.Password);
+
+        if (!passwordValid)
+        {
+            throw new InvalidOperationException(
+                "Invalid email or password.");
+        }
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(_jwtOptions.Key));
+
+        var credentials = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256);
+
+        var now = DateTime.UtcNow;
+
+        var claims = new List<Claim>
+        {
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new(JwtRegisteredClaimNames.Email, user.Email!),
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Name, user.Name)
+        };
+
+        var expiresAt = now.AddMinutes(
+            _jwtOptions.AccessTokenLifetimeMinutes);
+
+        var token = new JwtSecurityToken(
+            issuer: _jwtOptions.Issuer,
+            audience: _jwtOptions.Audience,
+            claims: claims,
+            notBefore: now,
+            expires: expiresAt,
+            signingCredentials: credentials);
+
+        var accessToken = new JwtSecurityTokenHandler()
+            .WriteToken(token);
+
+        return new LoginResponseDto
+        {
+            AccessToken = accessToken,
+            TokenType = "Bearer",
+            ExpiresAtUtc = expiresAt
+        };
     }
 }

@@ -25,12 +25,10 @@ public class AuthController : ControllerBase
         {
             await _authService.RegisterAsync(dto, cancellationToken);
 
-            return StatusCode(
-                StatusCodes.Status201Created,
-                new
-                {
-                    message = "Account created. Please verify your email."
-                });
+            return Ok(new
+            {
+                message = "Registration successful. Please verify your email."
+            });
         }
         catch (InvalidOperationException ex)
         {
@@ -45,18 +43,35 @@ public class AuthController : ControllerBase
     {
         try
         {
-            await _authService.VerifyEmailAsync(
-                dto,
-                cancellationToken);
+            await _authService.VerifyEmailAsync(dto, cancellationToken);
 
             return Ok(new
             {
-                message = "Email verified successfully. You can now log in."
+                message = "Email verified successfully."
             });
         }
         catch (InvalidOperationException ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(
+        [FromBody] LoginDto dto,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var response = await _authService.LoginAsync(
+                dto,
+                cancellationToken);
+
+            return Ok(response);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
         }
     }
 }

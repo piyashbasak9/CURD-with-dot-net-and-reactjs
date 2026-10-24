@@ -130,3 +130,11 @@
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/System.Formats.Asn1.dll
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/System.Security.Cryptography.Pkcs.dll
 /mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/mnt/ce64fe46-49c4-493a-9d1f-1115b051b230/CURD-with-dot-net-and-reactjs/src/TaskManager.API/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll

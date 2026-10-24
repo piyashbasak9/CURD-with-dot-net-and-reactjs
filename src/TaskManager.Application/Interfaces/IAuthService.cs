@@ -12,4 +12,8 @@ public interface IAuthService
     Task VerifyEmailAsync(
         VerifyEmailDto dto,
         CancellationToken cancellationToken = default);
+
+    Task<LoginResponseDto> LoginAsync(
+      LoginDto dto,
+      CancellationToken cancellationToken = default);
 }
